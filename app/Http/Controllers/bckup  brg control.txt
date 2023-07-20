@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\Barang;
+use App\Models\Kategori;
+use App\Models\Merek;
+
+use Illuminate\Http\Request;
+
+class BarangController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+
+            $kategori = Kategori::all()->pluck('nama_kategori', 'id');
+            $merek = Merek::all()->pluck("nama_merk", 'id');
+
+            return view('barang.index', compact('kategori','merek'));
+
+    }
+
+    public function data()
+    {
+        $barang = Barang::orderBy('id', 'desc')->get();
+
+        return datatables()
+            ->of($barang)
+            ->addIndexColumn()
+            ->addColumn('select_all', function ($barang) {
+                return '<input type="checkbox" name="id[]" value="' . $barang->id . '">';
+            })
+            ->addColumn('code', function ($barang) {
+                return '<span class="badge badge-secondary">' . $barang->code . '</span>';
+            })
+            ->addColumn('kategori', function ($barang) {
+                return $barang->kategori->nama_kategori;
+
+            })
+            ->addColumn('merek', function ($barang) {
+                return $barang->merek->nama_merk;
+            })
+            ->addColumn('stok', function ($barang) {
+                return $barang->stok;
+            })
+            ->addColumn('action', function ($barang) {
+                return '
+                <button onclick="(`' . route('barang.show', $barang->id ). '`)" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                <button onclick="(`' . route('barang.destroy', $barang->id) . '`)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                ';
+            })
+            ->rawColumns(['action', 'code', 'select_all'])
+            ->make(true);
+    }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $barang = Barang::latest()->first() ?? new Barang();
+        $request['code'] = 'A' . add_leading_zero((int)$barang->id + 1, 6);
+        $barang = Barang::create($request->all());
+
+        return response()->json('Data Create Successfully!', 200);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $barang = Barang::find($id);
+
+        return response()->json($barang);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+
+
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $barang = Barang::find($id) ?? new Barang();
+        $barang->update($request->all());
+
+        return response()->json('Data Create Successfully!', 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
