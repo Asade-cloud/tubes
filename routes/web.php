@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
@@ -44,7 +45,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::resource('barang', BarangController::class);
-
     Route::get('/search', [BarangController::class, 'search']);
 
 
@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::resource('barangmasuk', BarangMasukController::class);
+
+    Route::resource('barangkeluar', BarangKeluarController::class);
+
 
     Route::resource('supplier', SupplierController::class);
 

@@ -1,7 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Models\BarangKeluar;
+use App\Models\Merek;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class BarangKeluarController extends Controller
@@ -11,15 +13,33 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        //
+        $barang = Barang::all()->pluck('nama_barang', 'id');
+        $merek = Merek::all()->pluck("nama_merek", 'id');
+
+        $pageTitle = 'Barang Keluar';
+
+        $barangkeluars = BarangKeluar::all();
+
+        return view('barangkeluar.index', [
+            'barangkeluars' => $barangkeluars,
+            'barang' => $barang,
+            'pageTitle' =>$pageTitle,
+            'merek' => $merek,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
+
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $pageTitle = "Barang Keluar";
+
+
+        return view('barangkeluar.create', compact( 'pageTitle','barangs'));
+
     }
 
     /**
@@ -27,7 +47,24 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+
+        ];
+
+        $validator = Validator::make($request->all(), [
+
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        BarangKeluar::create($request->all());
+        $barangs = Barang::findOrFail($request->barang_id);
+        $barangs->stok -= $request->stok;
+        $barangs->save();
+        return redirect()->route('barangkeluar.index');
+
     }
 
     /**
@@ -61,4 +98,7 @@ class BarangKeluarController extends Controller
     {
         //
     }
+
+
+
 }
