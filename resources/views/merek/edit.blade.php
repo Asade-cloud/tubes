@@ -46,7 +46,6 @@
         </div>
     </form>
 </div>
-    @includeIf('barang.form')
 @endsection
 
 

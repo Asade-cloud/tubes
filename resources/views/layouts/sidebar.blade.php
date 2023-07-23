@@ -69,14 +69,9 @@
                                 <p>Barang</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="{{ route('member.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Member</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('supplier.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Supplier</p>
                             </a>
