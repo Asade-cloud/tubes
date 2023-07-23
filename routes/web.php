@@ -7,6 +7,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MerekController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::resource('barangmasuk', BarangMasukController::class);
+
+    Route::resource('supplier', SupplierController::class);
 
 
 

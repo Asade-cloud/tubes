@@ -94,7 +94,7 @@ class MerekController extends Controller
      */
     public function edit(string $id)
     {
-        $pageTitle = 'Merek Edit';
+        $pageTitle = 'Edit Merek';
 
         // ELOQUENT
 

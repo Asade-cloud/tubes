@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class SupplierController extends Controller
 {
@@ -11,15 +13,28 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $supplier = Supplier::all();
+        $pageTitle = 'List Supplier';
+
+
+        return view('supplier.index', [
+            'pageTitle' => $pageTitle,
+            'suppliers' => $supplier,
+        ]);
+
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $pageTitle = 'Tanbah Supplier';
+
+        $supplier = Supplier::all();
+
+        return view('supplier.create', compact('pageTitle', 'supplier'));
     }
 
     /**
@@ -27,7 +42,32 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'email' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required'
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
+
+               // INSERT QUERY
+               $supplier = new Supplier;
+               $supplier->nama = $request->input('nama');
+               $supplier->alamat = $request->input('alamat');
+               $supplier->telepon = $request->input('telepon');
+               $supplier->email = $request->input('email');
+               $supplier->save();
+
+               return redirect()->route('supplier.index');
     }
 
     /**
@@ -43,15 +83,51 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pageTitle = 'Edit Supplier';
+
+        // ELOQUENT
+
+        $supplier = Supplier::find($id);
+
+        return view('supplier.edit', [
+            'pageTitle' => $pageTitle,
+            'supplier' => $supplier
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, string $id)
     {
-        //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            'unique' => 'Data tidak boleh sama'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required'
+
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
+        $supplier = Supplier::find($id);
+        $supplier->nama = $request->nama;
+        $supplier->telepon = $request->telepon;
+        $supplier->email = $request->email;
+        $supplier->alamat = $request->alamat;
+
+        $supplier->save();
+
+
+        return redirect()->route('supplier.index');
+
     }
 
     /**
@@ -59,6 +135,9 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $supplier = Supplier::find($id);
+        $supplier->delete();
+        return redirect()->route('supplier.index');
+
     }
 }
