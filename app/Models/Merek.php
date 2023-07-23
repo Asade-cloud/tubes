@@ -13,4 +13,5 @@ class Merek extends Model
     {
         return $this->hasMany(Barang::class);
     }
+
 }

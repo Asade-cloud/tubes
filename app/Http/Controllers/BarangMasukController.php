@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\BarangMasuk;
 use App\Models\Barang;
@@ -49,6 +48,7 @@ class BarangMasukController extends Controller
      */
     public function store(Request $request)
     {
+
         BarangMasuk::create($request->all());
         $barangs = Barang::findOrFail($request->barang_id);
         $barangs->stok += $request->stok;
