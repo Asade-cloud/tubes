@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="container-sm mt-5">
-    <form action="{{ route('supplier.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('supplier.store') }}" method="POST" >
         @csrf
         <div class="row justify-content-center">
             <div class="p-5 bg-light rounded-3 border col-xl-12">
