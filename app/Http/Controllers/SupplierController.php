@@ -8,9 +8,23 @@ use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function search(Request $request){
+
+
+        $search = $request->search;
+        $pageTitle = 'List Supplier';
+
+
+        $suppliers =Supplier::where(function($query) use ($search){
+
+            $query->where('nama',"like","%$search%");
+            })
+            ->get();
+
+            return view('supplier.index',compact('suppliers','search','pageTitle'));
+
+    }
+
     public function index()
     {
         $supplier = Supplier::all();
