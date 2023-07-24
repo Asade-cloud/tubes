@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Kategori;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -10,9 +10,27 @@ class KategoriController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function search(Request $request){
+
+
+        $search = $request->search;
+        $pageTitle = 'List Kategori';
+
+
+        $kategoris =Kategori::where(function($query) use ($search){
+
+            $query->where('nama_kategori',"like","%$search%");
+            })
+            ->get();
+
+            return view('kategori.index',compact('kategoris','search','pageTitle'));
+
+    }
+
     public function index()
     {
-        $pageTitle = 'List Barang';
+        $pageTitle = 'List Kategori';
 
         $kategori = Kategori::all();
 
@@ -23,29 +41,16 @@ class KategoriController extends Controller
     }
 
 
-    public function data()
-    {
-        $kategori = Kategori::orderBy('id', 'desc')->get();
-
-        return datatables()
-            ->of($kategori)
-            ->addIndexColumn()
-            ->addColumn('action', function ($kategori) {
-                return '
-                <button onclick="editForm(`' . route('kategori.update', $kategori->id) . '`)" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                <button onclick="deleteData(`' . route('kategori.destroy', $kategori->id) . '`)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                ';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $pageTitle = 'Tanbah Kategori';
+
+        $kategori = Kategori::all();
+
+        return view('kategori.create', compact('pageTitle', 'kategori'));
     }
 
     /**
@@ -53,11 +58,25 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = new Kategori;
-        $kategori->nama_kategori = $request->name;
-        $kategori->save();
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            'unique'   => ':Tidak boleh sama'
 
-        return response()->json('Data Create Successfully!', 200);
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'nama_kategori' => 'required|unique:kategoris,nama_kategori',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
+               // INSERT QUERY
+               $kategori = new Kategori;
+               $kategori->nama_kategori = $request->input('nama_kategori');
+               $kategori->save();
+               return redirect()->route('kategori.index');
     }
 
     /**
@@ -65,28 +84,49 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        $kategori = Kategori::find($id);
 
-        return response()->json($kategori);    }
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
-    }
+        $pageTitle = 'Edit Kategori';
 
+        // ELOQUENT
+
+        $kategori = Kategori::find($id);
+
+        return view('kategori.edit', [
+            'pageTitle' => $pageTitle,
+            'kategori' => $kategori
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
+        $messages = [
+            'numeric' => 'Isi :Attribute dengan angka',
+            'unique' => 'Isi : Dengan Kode yang berbeda'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'nama_kategori' => 'required|unique:kategoris,nama_kategori,'.$id,
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
+
         $kategori = Kategori::find($id);
-        $kategori->nama_kategori = $request->name;
+        $kategori->nama_kategori = $request->nama_kategori;
         $kategori->update();
 
-        return response()->json('Data Create Successfully!', 200);
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -97,6 +137,6 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
         $kategori->delete();
 
-        return response(null, 204);
+        return redirect()->route('kategori.index');
     }
 }

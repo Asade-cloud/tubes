@@ -21,7 +21,7 @@ class BarangKeluarController extends Controller
         $barangkeluars =BarangKeluar::where(function($query) use ($search){
 
             $query->where('id',"like","%$search%")
-            ->orWhere('created_at',"like","%$search%");
+            ->orWhere('id',"like","%$search%");
 
             })
 

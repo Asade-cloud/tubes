@@ -3,8 +3,6 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MerekController;
@@ -40,8 +38,10 @@ Route::middleware([
 Route::group(['middleware' => 'auth'], function(){
 
 
-    Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
+    Route::get('/kategorisearch', [KategoriController::class, 'search']);
+
+
 
 
     Route::resource('barang', BarangController::class);

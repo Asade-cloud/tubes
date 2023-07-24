@@ -60,7 +60,7 @@
                         <li class="nav-item">
                             <a href="{{ route('kategori.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Category</p>
+                                <p>Kategory</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -74,6 +74,12 @@
                             <a href="{{ route('supplier.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Supplier</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('merek.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Merek</p>
                             </a>
                         </li>
                     </ul>
@@ -96,7 +102,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{'barangkeluar.index'}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang Keluar</p>
                             </a>

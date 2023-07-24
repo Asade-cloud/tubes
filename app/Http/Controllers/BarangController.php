@@ -25,18 +25,11 @@ class BarangController extends Controller
 
             $query->where('nama_barang',"like","%$search%")
             ->orWhere('kategori_id',"like","%$search%");
-
             })
-
             ->get();
-
             return view('barang.index',compact('barangs','search',));
 
     }
-
-
-
-
 
     public function index()
     {
