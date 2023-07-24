@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('barangmasuk', BarangMasukController::class);
 
     Route::resource('barangkeluar', BarangKeluarController::class);
+    Route::get('/barangkeluarsearch', [BarangKeluarController::class, 'search']);
+
 
 
     Route::resource('supplier', SupplierController::class);

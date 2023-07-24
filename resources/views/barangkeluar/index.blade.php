@@ -17,9 +17,18 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <form method="get" action="/barangkeluarsearch">
+                            <div class="input-group">
+                                <input class="form-control" name="search" type="date" placeholder="Search..." value="{{ isset($search) ? $search : ''}}" autocomplete="off">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
 
+                    </div>
+                </div>
                 <form action="" method="post" class="form-product">
-
                     @csrf
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -41,8 +50,6 @@
                                 <td>{{ $barangkeluar->barang->merek->nama_merek}}</td>
                                 <td>{{ $barangkeluar->stok }}</td>
                                 <td>{{ $barangkeluar->created_at }}</td>
-
-
                             </tbody>
                         @endforeach
                         </tbody>

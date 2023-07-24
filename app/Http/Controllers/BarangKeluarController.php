@@ -11,6 +11,24 @@ class BarangKeluarController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $pageTitle = 'Barang Keluar';
+
+
+        $barangkeluars =BarangKeluar::where(function($query) use ($search){
+
+            $query->where('id',"like","%$search%")
+            ->orWhere('created_at',"like","%$search%");
+
+            })
+
+            ->get();
+
+            return view('barangkeluar.index',compact('barangkeluars','search','pageTitle'));
+    }
     public function index()
     {
         $barang = Barang::all()->pluck('nama_barang', 'id');
