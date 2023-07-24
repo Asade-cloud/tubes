@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('kategori_id')->constrained();
             $table->string('nama_barang')->unique();
             $table->foreignId('merek_id')->constrained();
-            $table->integer('stok');
+            $table->integer('stok')->nullabe();
             $table->string('image')->nullable();
             $table->timestamps();
         });

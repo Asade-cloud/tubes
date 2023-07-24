@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::resource('supplier', SupplierController::class);
-
+    Route::get('/suppliersearch', [SupplierController::class, 'search']);
 
 
 
