@@ -23,8 +23,7 @@ class BarangController extends Controller
 
         $barangs =Barang::where(function($query) use ($search){
 
-            $query->where('nama_barang',"like","%$search%")
-            ->orWhere('kategori_id',"like","%$search%");
+            $query->where('nama_barang',"like","%$search%");
             })
             ->get();
             return view('barang.index',compact('barangs','search',));
@@ -79,7 +78,6 @@ class BarangController extends Controller
             'nama_barang' => 'required|unique:barangs,nama_barang',
             'kategori' => 'required',
             'merek' => 'required',
-            'stok' => 'required|numeric',
             'image' => 'image|file|max:4000'
         ], $messages);
 
@@ -91,10 +89,8 @@ class BarangController extends Controller
                // INSERT QUERY
                $barang = new Barang;
                $barang->nama_barang = $request->input('nama_barang');
-               $barang->stok = $request->input('stok');
                $barang->merek_id = $request->input('merek');
                $barang->kategori_id = $request->input('kategori');
-
                if ($request->file('image')){
             $barang->image = $request->file('image')->store('barang-image');
             }
@@ -132,15 +128,6 @@ class BarangController extends Controller
         $barang = Barang::find($id);
         $merek = Merek::all();
 
-        // Query Builder
-        // $employee = Employee::leftJoin('positions', 'positions.id', '=', 'employees.position_id')
-        //     ->select('employees.*', 'positions.name as position_name', 'positions.id as position_id')
-        //     ->where('employees.id', $id)
-        //     ->first();
-
-        // $positions = Position::get();
-
-        // dd($employee);
         return view('barang.edit', [
             'pageTitle' => $pageTitle,
             'barang' => $barang,
@@ -179,7 +166,6 @@ class BarangController extends Controller
         $barang = Barang::find($id);
         $barang->nama_barang = $request->nama_barang;
         $barang->kategori_id = $request->kategori;
-        $barang->stok = $request->stok;
         $barang->merek_id = $request->merek;
 
         if ($request->file('image')){

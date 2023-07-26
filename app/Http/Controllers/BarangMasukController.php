@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\BarangMasuk;
 use App\Models\Barang;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Validator;
+
 
 
 
@@ -13,10 +15,27 @@ class BarangMasukController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function search(Request $request)
+    {
+        $search = $request->search;
+        $pageTitle = 'Barang Masuk';
+        $barangmasuks =BarangMasuk::where(function($query) use ($search){
+            $query->where('id',"like","%$search%")
+            ->orWhere('id',"like","%$search%");
+
+            })
+
+            ->get();
+
+            return view('barangmasuk.index',compact('barangmasuks','search','pageTitle'));
+    }
+
     public function index()
     {
         $barang = Barang::all()->pluck('nama_barang', 'id');
         $supplier = Supplier::all()->pluck("nama", 'id');
+        $pageTitle = 'Barang Masuk';
 
 
         $barangmasuks = BarangMasuk::all();
@@ -24,8 +43,8 @@ class BarangMasukController extends Controller
         return view('barangmasuk.index', [
             'barangmasuks' => $barangmasuks,
             'barang' => $barang,
-            'supplier' => $supplier
-
+            'supplier' => $supplier,
+            'pageTitle' => $pageTitle
         ]);
 
     }
@@ -37,9 +56,10 @@ class BarangMasukController extends Controller
     {
         $suppliers = Supplier::all();
         $barangs = Barang::all();
+        $pageTitle = 'Barang Masuk';
 
 
-        return view('barangmasuk.create', compact( 'suppliers','barangs'));
+        return view('barangmasuk.create', compact( 'suppliers','barangs','pageTitle'));
 
     }
 
@@ -48,8 +68,22 @@ class BarangMasukController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            'numeric' => 'Isi :Attribute dengan angka',
+        ];
 
+        $validator = Validator::make($request->all(), [
+            'stok' => 'required|numeric',
+
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
         BarangMasuk::create($request->all());
+
         $barangs = Barang::findOrFail($request->barang_id);
         $barangs->stok += $request->stok;
         $barangs->save();
@@ -93,17 +127,7 @@ class BarangMasukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // ELOQUENT
-        $barangmasuk = BarangMasuk::findOrFail($id);
-        $barangmasuk->update($request->all());
 
-        $barang = Barang::findOrFail($request->barang_id);
-        $barang->stok += $request->stok;
-
-        $barang->update();
-
-
-        return redirect()->route('barangmasuk.index');
     }
 
     /**

@@ -50,7 +50,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6 d-grid">
-                        <a href="{{ route('barangmasuk.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i
+                        <a href="{{ route('barangkeluar.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i
                                 class="bi-arrow-left-circle me-2"></i> Cancel</a>
                     </div>
                     <div class="col-md-6 d-grid">

@@ -11,20 +11,20 @@ class MerekController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function cari(Request $request){
+    public function search(Request $request){
 
-        $cari = $request->cari;
+        $search = $request->search;
 
-        $mereks =Merek::where(function($query) use ($cari){
+        $mereks =Merek::where(function($query) use ($search){
 
-            $query->where('nama_merek',"like","%$cari%")
-            ->orWhere('id',"like","%$cari%");
+            $query->where('nama_merek',"like","%$search%")
+            ->orWhere('id',"like","%$search%");
 
             })
 
             ->get();
 
-            return view('merek.index',compact('mereks','cari',));
+            return view('merek.index',compact('mereks','search',));
 
     }
 
@@ -112,6 +112,19 @@ class MerekController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = [
+            'numeric' => 'Isi :Attribute dengan angka',
+            'unique' => 'Isi : Dengan Kode yang berbeda'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'nama_merek' => 'required|unique:mereks,nama_merek,'.$id,
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        }
 
         $mereks = Merek::find($id);
         $mereks->nama_merek = $request->nama_merek;

@@ -25,7 +25,6 @@
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
                 <form action="" method="post" class="form-product">
@@ -50,6 +49,8 @@
                                 <td>{{ $barangkeluar->barang->merek->nama_merek}}</td>
                                 <td>{{ $barangkeluar->stok }}</td>
                                 <td>{{ $barangkeluar->created_at }}</td>
+                                <td>@include('barangkeluar.action')</td>
+
                             </tbody>
                         @endforeach
                         </tbody>
