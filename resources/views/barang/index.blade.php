@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <form method="get" action="/search">
+                        <form method="get" action="/barangsearch">
                             <div class="input-group">
                                 <input class="form-control" name="search" placeholder="Search..." value="{{ isset($search) ? $search : ''}}" autocomplete="off">
                                 <button type="submit" class="btn btn-primary">Search</button>

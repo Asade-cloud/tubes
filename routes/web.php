@@ -45,14 +45,16 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::resource('barang', BarangController::class);
-    Route::get('/search', [BarangController::class, 'search']);
+    Route::get('/barangsearch', [BarangController::class, 'search']);
 
 
     Route::resource('merek', MerekController::class);
-    Route::get('/cari', [MerekController::class, 'cari']);
+    Route::get('/mereksearch', [MerekController::class, 'search']);
 
 
     Route::resource('barangmasuk', BarangMasukController::class);
+    Route::get('/barangmasuksearch', [BarangMasukController::class, 'search']);
+
 
     Route::resource('barangkeluar', BarangKeluarController::class);
     Route::get('/barangkeluarsearch', [BarangKeluarController::class, 'search']);

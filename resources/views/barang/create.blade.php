@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Product
+    Barang
 @endsection
 
 @section('breadcrumb')
@@ -54,14 +54,6 @@
                         </select>
                         @error('merek')
                             <div class="text-danger"><small>{{ $message }}</small></div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="stok" class="form-label">Stok</label>
-                        <input class="form-control" type="text" name="stok" id="stok"
-                            value="{{ old('stok') }}" placeholder="Stok ">
-                        @error('stok')
-                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">

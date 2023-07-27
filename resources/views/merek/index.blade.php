@@ -19,10 +19,10 @@
             <div class="card-body">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <form method="get" action="/cari">
+                        <form method="get" action="/mereksearch">
                             <div class="input-group">
-                                <input class="form-control" name="cari" placeholder="Cari..." value="{{ isset($cari) ? $cari : ''}}" autocomplete="off">
-                                <button type="submit" class="btn btn-primary">Cari</button>
+                                <input class="form-control" name="search" placeholder="search..." value="{{ isset($search) ? $search : ''}}" autocomplete="off">
+                                <button type="submit" class="btn btn-primary">search</button>
                             </div>
                         </form>
 

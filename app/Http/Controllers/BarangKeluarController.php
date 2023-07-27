@@ -71,12 +71,15 @@ class BarangKeluarController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
+            'stok' => 'required',
 
         ], $messages);
+
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         BarangKeluar::create($request->all());
         $barangs = Barang::findOrFail($request->barang_id);
         $barangs->stok -= $request->stok;

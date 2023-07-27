@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Product
+    Barang Masuk
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Barang</li>
+    <li class="breadcrumb-item active">{{$pageTitle}}</li>
 @endsection
 
 @section('content')
@@ -16,7 +16,16 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <form method="get" action="/barangmasuksearch">
+                            <div class="input-group">
+                                <input class="form-control" name="search" type="date" placeholder="Search..." value="{{ isset($search) ? $search : ''}}" autocomplete="off">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <form action="" method="post" class="form-product">
 
                     @csrf

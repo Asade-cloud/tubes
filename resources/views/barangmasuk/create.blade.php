@@ -5,16 +5,15 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Barang</li>
+    <li class="breadcrumb-item active">{{$pageTitle}}</li>
 @endsection
 
 @section('content')
 <div class="container-sm mt-5">
-    <form action="{{ route('barangmasuk.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('barangmasuk.store') }}" method="POST">
         @csrf
         <div class="row justify-content-center">
             <div class="p-5 bg-light rounded-3 border col-xl-12">
-
                 <div class="mb-3 text-center">
                     <h4>Input Barang</h4>
                 </div>
@@ -56,7 +55,6 @@
                             <div class="text-danger"><small>{{ $message }}</small></div>
                         @enderror
                     </div>
-
                 </div>
                 <hr>
                 <div class="row">
