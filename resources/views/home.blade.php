@@ -16,6 +16,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
+                        <h3>{{$barangs}}</h3>
                         <p>Barang</p>
                     </div>
                     <div class="icon">
@@ -29,7 +30,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-
+                        <h3>{{$kategoris}}</h3>
                         <p>Kategori</p>
                     </div>
                     <div class="icon">
@@ -43,14 +44,13 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
-
-                        <p>User Registrations</p>
+                        <h3>{{$suppliers}}</h3>
+                        <p>Supplier</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{route('supplier.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -58,14 +58,13 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
-
-                        <p>Unique Visitors</p>
+                        <h3>{{$mereks}}</h3>
+                        <p>Merek</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{route('merek.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
