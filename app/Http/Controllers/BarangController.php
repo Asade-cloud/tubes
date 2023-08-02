@@ -55,7 +55,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        $pageTitle = 'Create Employee';
+        $pageTitle = 'Tambah Barang';
 
         $kategoris = Kategori::all();
         $mereks = Merek::all();

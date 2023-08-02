@@ -95,7 +95,7 @@
 
                 <table class="table table-bordered table-striped">
                 <a href="{{route('barangkeluar.index')}}">
-                <h3> Data Barang Masuk</h3>
+                <h3> Data Barang Keluar</h3>
                 </a>
                         <thead>
                             <tr>

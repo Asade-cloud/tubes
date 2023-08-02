@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Barang
+    Tambah Barang
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active"></li>
+    <li class="breadcrumb-item active">{{$pageTitle}}</li>
 @endsection
 
 @section('content')
