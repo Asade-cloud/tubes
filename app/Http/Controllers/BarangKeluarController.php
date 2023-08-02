@@ -5,7 +5,8 @@ use App\Models\Merek;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Barang;
 use Illuminate\Http\Request;
-
+use Illuminate\Console\View\Components\Alert;
+use Termwind\Components\Div;
 class BarangKeluarController extends Controller
 {
     /**
@@ -76,15 +77,27 @@ class BarangKeluarController extends Controller
         ], $messages);
 
 
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+
+
         BarangKeluar::create($request->all());
         $barangs = Barang::findOrFail($request->barang_id);
+
+        if($request->stok > $barangs->stok){
+            return redirect()->back()->with("messages"," Gagal Stok Kurang");
+        }
+
         $barangs->stok -= $request->stok;
+
         $barangs->save();
+
         return redirect()->route('barangkeluar.index');
+
+
 
     }
 
@@ -117,7 +130,9 @@ class BarangKeluarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barangkeluar = BarangKeluar::find($id);
+        $barangkeluar->delete();
+        return redirect()->route("barangkeluar.index");
     }
 
 
