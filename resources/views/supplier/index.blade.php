@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('supplier.create') }}" class="btn btn-primary">Tambah Merek</a>
+                <a href="{{ route('supplier.create') }}" class="btn btn-primary">Tambah Supplier</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
