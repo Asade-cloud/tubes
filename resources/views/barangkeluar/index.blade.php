@@ -36,7 +36,7 @@
                                 <th>Nama Barang</th>
                                 <th>Merek</th>
                                 <th>Stok</th>
-                                <th>tanggal</th>
+                                <th>Tanggal</th>
 
                                 <th><i class="fas fa-cog"></i></th>
                             </tr>
