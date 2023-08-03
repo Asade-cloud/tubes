@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class KategoriSeeder extends Seeder
+class MerekSeeder extends Seeder
 {
     /**
      * Run the database seeds.

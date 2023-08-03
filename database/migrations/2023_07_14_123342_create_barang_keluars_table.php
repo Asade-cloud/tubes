@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('barang_id')->constrained();
             $table->integer('stok');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }

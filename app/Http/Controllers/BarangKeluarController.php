@@ -83,16 +83,12 @@ class BarangKeluarController extends Controller
         }
 
 
-
-        BarangKeluar::create($request->all());
         $barangs = Barang::findOrFail($request->barang_id);
-
         if($request->stok > $barangs->stok){
             return redirect()->back()->with("messages"," Gagal Stok Kurang");
         }
-
         $barangs->stok -= $request->stok;
-
+        BarangKeluar::create($request->all());
         $barangs->save();
 
         return redirect()->route('barangkeluar.index');
