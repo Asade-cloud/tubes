@@ -17,8 +17,10 @@ class HomeController extends Controller
         $kategori = Kategori::count();
         $supplier = Supplier::count();
         $merek = Merek::count();
-        $barangmasuk = BarangMasuk::paginate(5);
-        $barangkeluar = BarangKeluar::paginate(5);
+        $barangmasuk = BarangMasuk::latest()->paginate(5);
+
+        $barangkeluar = BarangKeluar::latest()->paginate(5);
+
 
         return view('home', [
             'barangs' => $barang,
